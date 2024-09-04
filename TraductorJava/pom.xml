@@ -1,14 +1,40 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-    <groupId>com.mycompany</groupId>
-    <artifactId>TraductorJava</artifactId>
-    <version>1.0-SNAPSHOT</version>
-    <packaging>jar</packaging>
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.source>17</maven.compiler.source>
-        <maven.compiler.target>17</maven.compiler.target>
-        <exec.mainClass>com.mycompany.traductorjava.TraductorJava</exec.mainClass>
-    </properties>
-</project>
+import java.util.Scanner;
+
+public class NumeroEnPalabras {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Ingrese el primer número (0-100): ");
+        int num1 = scanner.nextInt();
+
+        System.out.println("Ingrese el segundo número (0-100): ");
+        int num2 = scanner.nextInt();
+
+        int suma = num1 + num2;
+
+        String num1EnPalabras = convertirNumeroAPalabras(num1);
+        String num2EnPalabras = convertirNumeroAPalabras(num2);
+        String sumaEnPalabras = convertirNumeroAPalabras(suma);
+
+        System.out.println("La suma de " + num1EnPalabras + " más " + num2EnPalabras + " es " + sumaEnPalabras);
+        System.out.println("The sum of " + num1EnPalabras + " plus " + num2EnPalabras + " is " + sumaEnPalabras);
+    }
+
+    public static String convertirNumeroAPalabras(int numero) {
+        String[] unidades = { "cero", "uno", "dos", "tres", "cuatro", "cinco", "seis", "siete", "ocho", "nueve", "diez", 
+                              "once", "doce", "trece", "catorce", "quince", "dieciséis", "diecisiete", "dieciocho", "diecinueve"};
+        String[] decenas = { "", "", "veinte", "treinta", "cuarenta", "cincuenta", "sesenta", "setenta", "ochenta", "noventa"};
+        
+        if (numero < 20) {
+            return unidades[numero];
+        } else if (numero < 100) {
+            int unidad = numero % 10;
+            int decena = numero / 10;
+            return unidad == 0 ? decenas[decena] : decenas[decena] + " y " + unidades[unidad];
+        } else if (numero == 100) {
+            return "cien";
+        } else {
+            return "";
+        }
+    }
+}
